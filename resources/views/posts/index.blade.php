@@ -6,15 +6,22 @@
             <div class="panel">
                 <div class="panel-heading">
                     <h3>
-                        <a href="/posts/{{$post->id}}">
+                        <a href="/posts/{{$post->slug}}">
                             {{ $post->title }}
                         </a>
                     </h3>
                 </div>
 
                 <div class="panel-body">
-                    {{ $post->body }}
+                    {{str_limit(strip_tags($post->body), 50 )  }}
                 </div>
+
+                <div class="panel-footer">
+                    <span class="label label-info">
+                       <i class='fas fa-calendar'></i> {{ $post->created_at }}
+                    </span>
+                </div>
+
             </div>
         @endforeach
         {{ $posts->links() }}

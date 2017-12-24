@@ -52,10 +52,11 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
 
+        
         $post = new Post();
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-
+        $post->slug = str_replace(' ', '-', strtolower($post->title));
         $post->save();
 
         return redirect('/posts')->with('success','Post Created Successfully');
@@ -64,12 +65,14 @@ class PostsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
+        $post = Post::where('slug',$slug)->first();
+
+        return view('posts.show', compact('post'));
         
     }
 
@@ -82,6 +85,9 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::find($id);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -94,6 +100,18 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'title' => 'bail|required|min:3',
+            'body' => 'required'
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+
+        $post->save();
+
+        return redirect('/posts/'.$post->slug)->with('success','Post Updated Successfully');
     }
 
     /**
@@ -105,5 +123,11 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::find($id);
+
+        $post->delete();
+
+        return redirect('/posts')->with('success','Post Deleted Successfully');
+
     }
 }

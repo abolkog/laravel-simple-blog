@@ -14,6 +14,9 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
                 <li>
+                    <a href="/posts">Posts</a>
+                </li>
+                <li>
                     <a href="{{ route('aboutPage') }}">About</a>
                 </li>
                 <li>

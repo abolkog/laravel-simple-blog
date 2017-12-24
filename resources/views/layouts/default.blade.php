@@ -7,6 +7,10 @@
     <title>{{  config('app.name', 'My Blog' )  }}</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
+
 </head>
 <body>
     
