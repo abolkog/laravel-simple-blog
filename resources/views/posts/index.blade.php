@@ -5,7 +5,11 @@
         @foreach($posts as $post)
             <div class="panel">
                 <div class="panel-heading">
-                    <h3>{{ $post->title }}</h3>
+                    <h3>
+                        <a href="/posts/{{$post->id}}">
+                            {{ $post->title }}
+                        </a>
+                    </h3>
                 </div>
 
                 <div class="panel-body">

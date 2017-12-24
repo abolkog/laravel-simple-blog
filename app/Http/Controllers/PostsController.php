@@ -31,6 +31,7 @@ class PostsController extends Controller
     public function create()
     {
         //
+        return view('posts.create');
     }
 
     /**
@@ -41,7 +42,23 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Access request data
+        // $postTitle = $request->input('title');
+        // return $postTitle;
+
+        //Simple Validation
+        $request->validate([
+            'title' => 'bail|required|min:3',
+            'body' => 'required'
+        ]);
+
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+
+        $post->save();
+
+        return redirect('/posts')->with('success','Post Created Successfully');
     }
 
     /**
@@ -53,6 +70,7 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+        
     }
 
     /**
