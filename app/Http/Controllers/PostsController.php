@@ -3,11 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 use App\Post;
 
 class PostsController extends Controller
 {
+
+     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        // Every request need to be authneticated
+        // $this->middleware('auth');
+
+        //Only
+        // $this->middleware('auth',[ 'only'=> ['show'] ]);
+
+        //Except
+         $this->middleware('auth',[ 'except'=> ['index','show'] ]);
+
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -52,11 +74,16 @@ class PostsController extends Controller
             'body' => 'required'
         ]);
 
+        //Current User
+        $user = Auth::user();
         
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->slug = str_replace(' ', '-', strtolower($post->title));
+        $now = date('YmdHis');
+        $post->slug = str_replace(' ', '-', strtolower($post->title)).'-'.$now;
+        $post->user_id = $user->id;
         $post->save();
 
         return redirect('/posts')->with('success','Post Created Successfully');
