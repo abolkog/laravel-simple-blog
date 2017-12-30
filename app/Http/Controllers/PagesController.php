@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\ContactUs;
 
 class PagesController extends Controller
 {
@@ -22,5 +25,25 @@ class PagesController extends Controller
 
     public function contact() {
         return view('pages.contact');
+    }
+
+    public function dosend (Request $request) {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'subject' => 'required',
+            'body' => 'required|min:10'
+        ]);
+
+        $name = $request->input('name');
+        $email = $request->input('email');
+        $subject = $request->input('subject');
+        $body = $request->input('body');
+
+        Mail::to('abolkog@gmail.com')
+            ->send(new ContactUs($name, $email, $subject, $body));
+
+        return redirect('/contact')->with('success', 'I got your message and will answer your asap.... psych!!!');
+
     }
 }

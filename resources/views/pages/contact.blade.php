@@ -4,21 +4,34 @@
 <h1>Contact Us</h1>
 <hr />
 
-<form action="">
+
+{!! Form::open(['action'=> 'PagesController@dosend', 'method'=>'POST' ])  !!}
+    
     <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" name="name"  />
+        {{ Form::label('Name') }}
+        {{ Form::text('name', '', [ 'placeholder'=>'Enter your name', 'class'=>'form-control' ]) }}
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('Email') }}
+        {{ Form::text('email', '', [ 'placeholder'=>'Enter your email', 'class'=>'form-control' ]) }}
     </div>
     
     <div class="form-group">
-        <label for="name">Email</label>
-        <input type="text" class="form-control" name="email"  />
+        {{ Form::label('Subject') }}
+        {{ Form::text('subject', '', [ 'placeholder'=>'Enter your subject', 'class'=>'form-control' ]) }}
     </div>
 
-    <div class="from-group pull-right">
-        <button class='btn btn-info' >Send</button>
+    
+    <div class="form-group">
+        {{ Form::label('Body') }}
+        {{ Form::textarea('body', '', [ 'placeholder'=>'Enter message', 'class'=>'form-control' ]) }}
     </div>
 
-</form>
+    <div class="form-group pull-right">
+        {{ Form::submit('Send Message', ['class'=>'btn btn-primary']) }}
+    </div>
+
+{!! Form::close()  !!}
 
 @endsection
