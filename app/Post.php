@@ -14,4 +14,8 @@ class Post extends Model
 
     // Timestamp disable
     // public $timestamps = false;
+
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 }

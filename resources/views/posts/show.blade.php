@@ -3,6 +3,7 @@
 @section('content')
     <h1>{{ $post->title }} </h1>
   
+    @if(!Auth::guest() && (Auth::user()->id  == $post->user_id) )
     <div class="clearfix">
         <a href="/posts/{{ $post->id }}/edit" class="btn btn-default">
             <i class='fas fa-edit'></i> Edit Post
@@ -18,6 +19,7 @@
             {!! Form::close() !!}
         </div>
     </div>
+    @endif
 
     <hr />
     <div>
