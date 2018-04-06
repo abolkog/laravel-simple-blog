@@ -16,16 +16,21 @@
 // });
 
 
+// Landing PAge
 Route::get('/', 'PagesController@index');
 
+//Pages
 Route::get('/about', 'PagesController@about')->name('aboutPage');
-
 Route::get('/contact', 'PagesController@contact');
-
 Route::post('/dosend', 'PagesController@dosend');
 
+// Posts
 Route::resource('posts','PostsController');
 
+//Comments
+Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
+
+//Auth
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

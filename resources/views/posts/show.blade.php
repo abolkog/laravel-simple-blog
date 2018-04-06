@@ -25,4 +25,50 @@
     <div>
         {!! $post->body !!}
     </div>
+
+    <hr />
+
+    <h4>Comments: {{ $post->comments->count() }}</h4>
+
+    <!-- Comments List -->
+    <ul class="comments">
+
+        @foreach($post->comments as $comment)
+        <li class="comment">
+            <div class="clearfix">
+                <h4 class="pull-left">{{ $comment->user->name }}</h4>
+                <p class="pull-right">{{ $comment->created_at->format('d M Y') }}</p>
+            </div>
+
+            <p>{{ $comment->body }}</p>
+        </li>
+        @endforeach
+    </ul>
+    <!-- Comments List -->
+
+
+    <!-- Comments Form -->
+    <div class="panel panel-default">
+        <div class="panel-heading">Add Your Comment</div>
+        <div class="panel-body">
+
+            @guest
+                <div class="alert alert-info">Please login to comment</div>
+            @else
+            <form action="{{ route('comments.store', $post->slug) }}" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <label for="Comment">Comment</label>
+                    <textarea name="body" class="form-control" placeholder="Enter your comment" cols="30" rows="10"></textarea>
+                </div>
+
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary">Add Comment</button>
+                </div>
+            </form>
+            @endguest
+
+        </div>
+    </div>
+    <!-- Comments Form -->
 @endsection
