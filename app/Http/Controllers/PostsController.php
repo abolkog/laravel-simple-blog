@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Post;
+use Image;
 
 class PostsController extends Controller
 {
@@ -71,7 +72,8 @@ class PostsController extends Controller
         //Simple Validation
         $request->validate([
             'title' => 'bail|required|min:3',
-            'body' => 'required'
+            'body' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
         //Current User
@@ -84,6 +86,19 @@ class PostsController extends Controller
         $now = date('YmdHis');
         $post->slug = str_replace(' ', '-', strtolower($post->title)).'-'.$now;
         $post->user_id = $user->id;
+
+        //Upload the featured image if any
+        if ($request->hasFile('photo')) {
+            $photo = $request->photo;
+            $filename = time() .'-'. $photo->getClientOriginalName();
+            $location = public_path('images/posts/'.$filename);
+
+            Image::make($photo)->resize(800, 400)->save($location);
+            
+            $post->photo = $filename;
+        }
+        
+        
         $post->save();
 
         return redirect('/posts')->with('success','Post Created Successfully');

@@ -10,7 +10,8 @@
 
     <title>{{  config('app.name', 'My Blog' )  }}</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('css/app.css') }}"> --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/extra.css') }}">
 
     <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
