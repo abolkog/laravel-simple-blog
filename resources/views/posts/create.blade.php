@@ -17,6 +17,15 @@
     </div>
 
     <div class="form-group">
+        {{ Form::label('Tags') }}
+        <select name="tags[]" class="form-control tags" multiple>
+            @foreach($tags as $tag)
+                <option value="{{ $tag->id }}">{{  $tag->tag }} </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="form-group">
         {{ Form::label('Featured Image') }}
         {{ Form::file('photo', ['class'=>'form-control' ]) }}
     </div>
@@ -27,4 +36,13 @@
 
 {!! Form::close()  !!}
 
+@endsection
+
+
+@section('javascript')
+<script type="text/javascript">
+$(document).ready(function() {
+    $('.tags').select2();
+});
+</script>
 @endsection

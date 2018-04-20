@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\Post;
+use App\Tag;
 use Image;
 
 class PostsController extends Controller
@@ -54,7 +55,8 @@ class PostsController extends Controller
     public function create()
     {
         //
-        return view('posts.create');
+        $tags = Tag::all();
+        return view('posts.create',compact('tags'));
     }
 
     /**
@@ -100,6 +102,8 @@ class PostsController extends Controller
         
         
         $post->save();
+
+        $post->tags()->sync($request->tags);
 
         return redirect('/posts')->with('success','Post Created Successfully');
     }

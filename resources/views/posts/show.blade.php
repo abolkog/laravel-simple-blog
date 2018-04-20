@@ -10,6 +10,13 @@
             </div>
             {!! $post->body !!}
 
+            @foreach($post->tags as $tag)
+                <span class="label label-info">
+                    <i class="fa fa-tag"></i> {{ $tag->tag }}
+                </span>
+                &nbsp;
+            @endforeach
+
             <hr />
 
             <h4>Comments: {{ $post->comments->count() }}</h4>

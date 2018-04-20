@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/extra.css') }}">
 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+
     <script src="//cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.1/js/all.js"></script>
 
@@ -28,6 +31,9 @@
     </div>
 
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    
+    @yield('javascript')
 
 </body>
 </html>
