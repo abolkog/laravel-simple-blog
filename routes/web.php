@@ -30,6 +30,9 @@ Route::resource('posts','PostsController');
 //Comments
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
+//Tags 
+Route::resource('tags','TagsController')->only(['show']);
+
 //Auth
 Auth::routes();
 Route::get('user/verify/{token}','Auth\RegisterController@verifyEmail');

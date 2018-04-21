@@ -43,8 +43,8 @@ class PostsController extends Controller
         // $posts = Post::orderBy('created_at', 'DESC')->get();
 
         $posts = Post::orderBy('created_at', 'DESC')->paginate(10);
-
-        return view('posts.index', compact('posts'));
+        $tags = Tag::all();
+        return view('posts.index', compact('posts','tags'));
     }
 
     /**
@@ -139,7 +139,8 @@ class PostsController extends Controller
             return redirect('/posts')->with('error', 'That is not your post yaaaad!!!!');
         }
 
-        return view('posts.edit', compact('post'));
+        $tags = Tag::all();
+        return view('posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -168,6 +169,8 @@ class PostsController extends Controller
         }
 
         $post->save();
+
+        $post->tags()->sync($request->tags);
 
         return redirect('/posts/'.$post->slug)->with('success','Post Updated Successfully');
     }

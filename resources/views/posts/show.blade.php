@@ -11,9 +11,11 @@
             {!! $post->body !!}
 
             @foreach($post->tags as $tag)
-                <span class="label label-info">
-                    <i class="fa fa-tag"></i> {{ $tag->tag }}
-                </span>
+                <a href="{{ route('tags.show', $tag->id) }}">
+                    <span class="label label-info">
+                        <i class="fa fa-tag"></i> {{ $tag->tag }}
+                    </span>
+                </a>
                 &nbsp;
             @endforeach
 
