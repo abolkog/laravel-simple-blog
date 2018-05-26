@@ -86,7 +86,7 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->body = $request->input('body');
         $now = date('YmdHis');
-        $post->slug = str_replace(' ', '-', strtolower($post->title)).'-'.$now;
+        $post->slug = str_slug($post->title) . '-' . $now; // replace Reqular Slug With Function str_slug
         $post->user_id = $user->id;
 
         //Upload the featured image if any
