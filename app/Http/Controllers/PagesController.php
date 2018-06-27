@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-
-use App\Mail\ContactUs;
+use App\Jobs\SendEmailJob;
 
 class PagesController extends Controller
 {
@@ -40,8 +38,7 @@ class PagesController extends Controller
         $subject = $request->input('subject');
         $body = $request->input('body');
 
-        Mail::to('abolkog@gmail.com')
-            ->send(new ContactUs($name, $email, $subject, $body));
+        SendEmailJob::dispatch($name, $email, $subject, $body);
 
         return redirect('/contact')->with('success', 'I got your message and will answer your asap.... psych!!!');
 
