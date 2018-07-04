@@ -18,6 +18,7 @@ class PostsController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth:api', ['except' => ['index', 'show']]);
     }
 
 
@@ -52,7 +53,7 @@ class PostsController extends Controller
         $post->body = $request->input('body');
         $now = date('YmdHis');
         $post->slug = str_slug($post->title) . '-' . $now;
-        $post->user_id = 3; //TODO: Update this in the next video
+        $post->user_id = auth('api')->user()->id;
         
         $post->save();
 
@@ -91,8 +92,10 @@ class PostsController extends Controller
         $post->title = $request->input('title');
         $post->body = $request->input('body');
 
-        //TODO: Add User Id Check
-
+        $userId = auth('api')->user()->id;
+        if ($post->user_id !== $userId ) {
+            return response()->json(['error' => 'This is not your post'], 401);
+        }
         $post->save();
 
         return new PostResource($post);
@@ -107,6 +110,12 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+        
+        $userId = auth('api')->user()->id;
+        if ($post->user_id !== $userId ) {
+            return response()->json(['error' => 'This is not your post'], 401);
+        }
+
         $post->delete();
 
         return response()->json(null, 204);
