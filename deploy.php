@@ -23,7 +23,7 @@ add('writable_dirs', []);
 // Hosts
 
 host('149.28.132.25')
-    ->set('deploy_path', '~/{{application}}');    
+    ->set('deploy_path', '/var/www/html/lblog');    
     
 // Tasks
 
