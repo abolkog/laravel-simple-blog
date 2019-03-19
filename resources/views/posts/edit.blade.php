@@ -4,7 +4,7 @@
 <h1>Edit {{ $post->title }}</h1>
 <hr />
 
-{!! Form::open(['action'=> ['PostsController@update', $post->id ], 'method'=>'POST' ])  !!}
+{!! Form::open(['action'=> ['PostsController@update', $post->id ], 'method'=>'POST', 'files' => true ])  !!}
 
     {{ Form::hidden('_method', 'PUT') }}
     
@@ -26,6 +26,12 @@
             @endforeach
         </select>
     </div>
+    
+    <div class="form-group">
+        {{ Form::label('Featured Image') }}
+        {{ Form::file('photo', ['class'=>'form-control' ]) }}
+    </div>
+    <img style="max-width:200px;" class="img-responsive" src="{{ asset('images/posts/'.$post->photo) }}" />
 
     <div class="form-group pull-right">
         {{ Form::submit('Update', ['class'=>'btn btn-primary']) }}
