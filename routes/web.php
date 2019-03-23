@@ -31,7 +31,8 @@ Route::resource('posts','PostsController');
 Route::post('/comments/{slug}', 'CommentsController@store')->name('comments.store');
 
 //Tags 
-Route::resource('tags','TagsController')->only(['show']);
+Route::resource('tags','TagsController');
+Route::get('/home/tags', 'TagsController@index')->name('tags');
 
 //Auth
 Auth::routes();
