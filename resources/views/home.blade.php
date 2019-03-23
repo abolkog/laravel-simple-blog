@@ -12,6 +12,11 @@
                             <i class="fas fa-plus"></i> New Post
                         </a>
                     </div>
+                    <div class="btn-group pull-right">&nbsp;&nbsp;
+                        <a href="home/tags" class="btn btn-default btn-xs">
+                            <i class="fas fa-tags"></i> Tags
+                        </a>
+                    </div>
                 </div>
 
                 <div class="panel-body">
